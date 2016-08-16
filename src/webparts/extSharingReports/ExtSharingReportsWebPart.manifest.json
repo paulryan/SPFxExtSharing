@@ -1,0 +1,22 @@
+{
+  "$schema": "../../../node_modules/@ms/sp-modules-common/lib/manifestSchemas/jsonSchemas/clientSideComponentManifestSchema.json",
+
+  "id": "b6c00ad0-9838-4884-8cd3-ebc5f800ae8f",
+  "componentType": "WebPart",
+  "version": "0.0.1",
+  "manifestVersion": 2,
+
+  "preconfiguredEntries": [{
+    "groupId": "b6c00ad0-9838-4884-8cd3-ebc5f800ae8f",
+    "group": { "default": "Security" },
+    "title": { "default": "External Users" },
+    "description": { "default": "Keep an eye on external users" },
+    "officeFabricIconFontName": "Page",
+    "properties": {
+      "scope": 1,
+      "mode": 1,
+      "displayType": 1,
+      "noResultsMessage": "No externally shared content was found"
+    }
+  }]
+}

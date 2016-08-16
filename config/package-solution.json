@@ -1,0 +1,11 @@
+{
+  "solution": {
+    "name": "paulwryan-extsharing-client-side-solution",
+    "id": "6e20aa24-b20c-4959-81d5-19456a5d4d26",
+    "version": "1.0.0.0"
+  },
+  "paths": {
+    "manifestsMatch": "dist/**/*.manifest.json",
+    "zippedPackage": "paulwryan-extsharing.spapp"
+  }
+}
