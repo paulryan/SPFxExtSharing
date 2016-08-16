@@ -6,11 +6,11 @@ import {
   IExtSharingReportsProps
 } from "./ExtSharingReportsInterfaces";
 
-export default class ExtSharingReports extends React.Component<IExtSharingReportsProps, {}> {
+export default class ExtContentTable extends React.Component<IExtSharingReportsProps, {}> {
   public render(): JSX.Element {
     return (
       <div className={styles.extSharingReports}>
-        <div>This is the <b>I'll get some content later...</b> webpart.</div>
+        <div>Hello world</div>
       </div>
     );
   }

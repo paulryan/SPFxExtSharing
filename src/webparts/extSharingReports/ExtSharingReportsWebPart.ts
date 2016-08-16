@@ -15,7 +15,7 @@ import * as React from "react";
 import * as ReactDom from "react-dom";
 
 import strings from "./loc/Strings.resx";
-import ExtSharingReports from "./ExtSharingReports";
+import ExtContentTable from "./ExtContentTable";
 
 import {
   SPScope,
@@ -34,16 +34,16 @@ export default class ExtSharingReportsWebPart extends BaseClientSideWebPart<IExt
   }
 
   public render(mode: DisplayMode, data?: IWebPartData): void {
+    const extContentStore: ExtContentFetcher = new ExtContentFetcher({
+      host: this.host,
+      scope: this.properties.scope,
+      mode: this.properties.mode,
+      noResultsString: this.properties.noResultsString
+    });
+
     let element: React.ReactElement<IExtSharingReportsProps> = null;
     if (this.properties.displayType === DisplayType.Table) {
-      element = React.createElement(ExtSharingReports, {
-        store: new ExtContentFetcher({
-          host: this.host,
-          scope: this.properties.scope,
-          mode: this.properties.mode,
-          noResultsString: this.properties.noResultsString
-        })
-      });
+      element = React.createElement(ExtContentTable, { store: extContentStore });
     }
     else {
       throw new Error("This Display Type is not yet implemented: " + this.properties.displayType);

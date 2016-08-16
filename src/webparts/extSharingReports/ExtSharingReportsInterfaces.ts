@@ -54,7 +54,7 @@ export interface ISecurableObject {
 }
 
 export interface IGetExtContentFunc {
-    (props: IExtContentFetcherProps): Promise<IGetExtContentFuncResponse>;
+    (): Promise<IGetExtContentFuncResponse>;
 }
 
 export interface ISecurableObjectStore {
