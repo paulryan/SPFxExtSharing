@@ -85,3 +85,7 @@ export interface IExtSharingReportsWebPartProps {
 export interface IExtSharingReportsProps {
   store: ISecurableObjectStore;
 }
+
+export interface ITableProps {
+  items: ISecurableObject[];
+}

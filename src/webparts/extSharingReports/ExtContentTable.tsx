@@ -12,16 +12,20 @@ import {
 } from "./Logger";
 
 import {
-  FocusZone,
-  FocusZoneDirection,
-  KeyCodes,
   Spinner,
   SpinnerType,
-  Label,
-  css
+  Label
 } from "@ms/office-ui-fabric-react";
 
-import styles from "./ExtSharingReports.module.scss";
+import Table from "./Table";
+
+interface ITableProps {
+  items: ISecurableObject[];
+}
+
+interface ITableRowProps {
+  item: ISecurableObject;
+}
 
 export default class ExtContentTable extends React.Component<IExtSharingReportsProps, IGetExtContentFuncResponse> {
   private log: Logger;
@@ -88,55 +92,8 @@ export default class ExtContentTable extends React.Component<IExtSharingReportsP
       );
     }
     else if (this.state && this.state.controlMode === ControlMode.Content) {
-      // TODO: Extract Table and TableRow into their own classes
-      const tableCellClasses: string = css(styles.msTableCellNoWrap, "ms-Table-cell");
-      const TableRow = (row: ISecurableObject) => (
-        <tr className="ms-Table-row">
-          <td className={tableCellClasses}>{row.Type}</td>
-          <td className={tableCellClasses}>{row.Title}</td>
-          <td className={tableCellClasses}>{row.LastModifiedTime}</td>
-          <td className={tableCellClasses}>{row.SharedWith}</td>
-          <td className={tableCellClasses}>{row.SharedBy}</td>
-        </tr>
-      );
-      const tableRows: JSX.Element[] = this.state.extContent.map(c => {
-        return (
-          <TableRow
-            key={c.URL}
-            Type={c.Type}
-            Title={c.Title}
-            URL={c.URL}
-            FileExtension={c.FileExtension}
-            SharedBy={c.SharedBy}
-            SharedWith={c.SharedWith}
-            LastModifiedTime={c.LastModifiedTime}
-            />
-        );
-      });
-      const Table = () => (
-        <div className={styles.msTableOverflow}>
-          <table className="ms-Table">
-              <tr className="ms-Table-row">
-                <td className={tableCellClasses}>Type</td>
-                <td className={tableCellClasses}>Title</td>
-                <td className={tableCellClasses}>Modified</td>
-                <td className={tableCellClasses}>Shared With</td>
-                <td className={tableCellClasses}>Shared By</td>
-              </tr>
-            <tbody>
-              {tableRows}
-            </tbody>
-          </table>
-        </div>
-      );
-
       return (
-        <FocusZone
-          direction={ FocusZoneDirection.vertical }
-          isInnerZoneKeystroke={ (ev: KeyboardEvent) => ev.which === KeyCodes.right }>
-            <Table>
-            </Table>
-        </FocusZone>
+        <Table items={this.state.extContent} />
       );
     }
     else {
