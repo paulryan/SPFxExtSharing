@@ -1,6 +1,6 @@
 import {
   IWebPartHost
-} from '@ms/sp-client-platform';
+} from "@ms/sp-client-platform";
 
 export enum SPScope {
   Tenant = 1,
@@ -30,17 +30,25 @@ export enum SecurableObjectType {
   Site = 4
 }
 
+export enum ControlMode {
+  Loading = 1,
+  Message = 2,
+  Content = 3
+}
+
 export interface IExtContentFetcherProps {
   host: IWebPartHost;
   scope: SPScope;
   mode: Mode;
+  managedProperyName: string;
   noResultsString: string;
 }
 
 export interface IGetExtContentFuncResponse {
   extContent: ISecurableObject[];
-  shouldShowMessage: boolean;
+  controlMode: ControlMode;
   message: string;
+  timeStamp: number;
 }
 
 export interface ISecurableObject {
@@ -51,6 +59,7 @@ export interface ISecurableObject {
   LastModifiedTime: string;
   SharedWith: string;
   SharedBy: string;
+  key: string;
 }
 
 export interface IGetExtContentFunc {
@@ -58,6 +67,7 @@ export interface IGetExtContentFunc {
 }
 
 export interface ISecurableObjectStore {
+  timeStamp: number;
   getAllExtDocuments: IGetExtContentFunc;
   // getMyExtDocuments: IGetExtContentFunc;
   // getAllExtNonDocuments: IGetExtContentFunc;
@@ -69,6 +79,7 @@ export interface IExtSharingReportsWebPartProps {
   mode: Mode;
   displayType: DisplayType;
   noResultsString: string;
+  managedPropertyName: string;
 }
 
 export interface IExtSharingReportsProps {

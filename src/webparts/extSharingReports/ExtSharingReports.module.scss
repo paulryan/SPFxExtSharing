@@ -1,21 +1,10 @@
-.extSharingReports {
-  .container {
-    max-width: 700px;
-    margin: 0px auto;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
-  }
+@import 'fabric.components.min.css';
 
-  .row {
-    padding: 20px;
-  }
+.msTableCellNoWrap {
+    white-space: nowrap;
+}
 
-  .listItem {
-    max-width: 715px;
-    margin: 5px auto 5px auto;
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
-  }
-
-  .button {
-    text-decoration: none;
-  }
+.msTableOverflow {
+  max-width: 100%;
+  overflow: auto;
 }

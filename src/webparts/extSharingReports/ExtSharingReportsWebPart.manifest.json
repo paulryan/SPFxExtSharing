@@ -16,7 +16,8 @@
       "scope": 1,
       "mode": 1,
       "displayType": 1,
-      "noResultsMessage": "No externally shared content was found"
+      "noResultsMessage": "No externally shared content was found",
+      "managedPropertyName": "SharedWithDetails2"
     }
   }]
 }

@@ -22,32 +22,60 @@ import {
   Mode,
   DisplayType,
   IExtSharingReportsProps,
-  IExtSharingReportsWebPartProps
+  IExtSharingReportsWebPartProps,
+  IExtContentFetcherProps,
+  ISecurableObjectStore
 } from "./ExtSharingReportsInterfaces";
 
 import ExtContentFetcher from "./ExtContentFetcher";
+import MockContentFetcher from "./tests/MockContentFetcher";
+
+import {
+  Logger
+} from "./Logger";
+
+import {
+  HostType
+} from "@ms/sp-client-platform";
 
 export default class ExtSharingReportsWebPart extends BaseClientSideWebPart<IExtSharingReportsWebPartProps> {
+  private log: Logger;
 
   public constructor(context: IWebPartContext) {
     super(context);
+    this.log = new Logger("ExtSharingReportsWebPart");
   }
 
   public render(mode: DisplayMode, data?: IWebPartData): void {
-    const extContentStore: ExtContentFetcher = new ExtContentFetcher({
+    // Define properties for the Content Fetcher
+    const contentFecherProps: IExtContentFetcherProps = {
       host: this.host,
       scope: this.properties.scope,
       mode: this.properties.mode,
+      managedProperyName: this.properties.managedPropertyName,
       noResultsString: this.properties.noResultsString
-    });
+    };
 
+    // Create appropriate Content Fectcher class for getting content
+    let extContentStore: ISecurableObjectStore;
+    if (this.host.hostType === HostType.TestPage) {
+      extContentStore = new MockContentFetcher(contentFecherProps);
+    }
+    else {
+      extContentStore = new ExtContentFetcher(contentFecherProps);
+    }
+
+    // Create appropriate ReactElement for displaying content
     let element: React.ReactElement<IExtSharingReportsProps> = null;
     if (this.properties.displayType === DisplayType.Table) {
       element = React.createElement(ExtContentTable, { store: extContentStore });
     }
     else {
-      throw new Error("This Display Type is not yet implemented: " + this.properties.displayType);
+      this.log.logError("Unsupported display type: " + this.properties.displayType);
+      return null;
     }
+
+    // Build the control!
     ReactDom.render(element, this.domElement);
   }
 
@@ -94,8 +122,13 @@ export default class ExtSharingReportsWebPart extends BaseClientSideWebPart<IExt
             {
               groupName: "Other",
               groupFields: [
+                PropertyPaneTextField("managedPropertyName", {
+                  label: "What is the name of the Managed Property with shared details?",
+                  description: `This property must be configured as such:
+                                Text, Multi, Queryable, Retrievable, and be mapped to 'ows_SharedWithDetails'`
+                }),
                 PropertyPaneTextField("noResultsMessage", {
-                  label: "No results message"
+                  label: "What message should we display when there are no results?"
                 }),
               ]
             }
